@@ -1,161 +1,88 @@
-    <!-- body section -->
-    <section class="home" id="home">
+<?php
+$rowPerPage = 20;
+$sqlProduct = "SELECT prd_id FROM product";
+$resultAll = mysqli_query($conn, $sqlProduct);
 
-        <div class="content">
-            <h3>Thế Giới Đồ Ăn Vặt Việt</h3>
-            <p>Thỏa thích mua sắm đồ ăn vặt trong những ngày hè</p>
-            <a href="#" class="btn">Đặt món tại đây</a>
-        </div>
-    
-    </section>
-    <section class="menu" id="menu">
+$totalRecords = mysqli_num_rows($resultAll);
+$totalPage = ceil($totalRecords / $rowPerPage);
 
-        <h1 class="heading"> Thực <span>Đơn</span> </h1>
-    
-        <div class="box-container">
-    
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-1.png" alt="">
-                <h3>Burger</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-    
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-2.png" alt="">
-                <h3>Pizza</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-    
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-3.png" alt="">
-                <h3>Khoai Tây Chiên</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-    
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-4.png" alt="">
-                <h3>Bánh Gà</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-    
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-5.png" alt="">
-                <h3>Phô Mai Que</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
+if (isset($_GET['current_page'])) {
+    $current_page = $_GET['current_page'];
+} else {
+    $current_page = 1;
+}
 
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-6.png" alt="">
-                <h3>Bò Khô</h3>
-                <div class="price">$3 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
+if ($current_page < 1) {
+    $current_page = 1;
+}
+if ($current_page > $totalPage) {
+    $current_page = $totalPage;
+}
 
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-7.png" alt="">
-                <h3>Khô Gà</h3>
-                <div class="price">$2 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
+$start = ($current_page - 1) * $totalPage;
+$sqlPagination = "SELECT * FROM product INNER JOIN category ON product.cat_id = category.cat_id ORDER BY prd_id DESC LIMIT $start, $rowPerPage";
+$resultPagination = mysqli_query($conn, $sqlPagination);
 
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-8.png" alt="">
-                <h3>Que cay</h3>
-                <div class="price">$1 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
 
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-9.png" alt="">
-                <h3>Mỳ Trộn</h3>
-                <div class="price">$3 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
+?>
 
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-10.png" alt="">
-                <h3>Mít sấy</h3>
-                <div class="price">$1 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
+<img src="images/2110.w023.n001.1293B.p1.1293.jpg" alt="" class="image_top">
 
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-1.png" alt="">
-                <h3>Burger</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-    
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-2.png" alt="">
-                <h3>Pizza</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-    
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-3.png" alt="">
-                <h3>Khoai Tây Chiên</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-    
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-4.png" alt="">
-                <h3>Bánh Gà</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-    
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-5.png" alt="">
-                <h3>Phô Mai Que</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
+<section class="menu" id="menu">
 
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-6.png" alt="">
-                <h3>Bò Khô</h3>
-                <div class="price">$3 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
+    <h1 class="heading"> Thực <span>Đơn</span> </h1>
 
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-7.png" alt="">
-                <h3>Khô Gà</h3>
-                <div class="price">$2 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
+    <div class="box-container">
+        <?php
+        if (mysqli_num_rows($resultPagination) > 0) {
+            while ($product = mysqli_fetch_assoc($resultPagination)) {
+        ?>
+                <div class="box">
+                    <img class="items" src="images/<?php echo $product['prd_image']; ?>" alt="">
+                    <h3><?php echo $product['prd_name']; ?></h3>
+                    <div class="price"><?php echo number_format($product['prd_price'], 0, ',', '.'); ?> đ</div>
+                    <a href="modules/cart/process_cart.php?action=add&prd_id=<?php echo $product['prd_id']; ?>" class="btn-add add-cart">Thêm vào giỏ</a>
+                </div>
+        <?php
+            }
+        }
+        ?>
+    </div>
+    <div class="panel-footer">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <!-- Hiển thị nút bấm trở về trang trước -->
+                <?php if ($current_page > 1) { ?>
+                    <li class="page-item"><a class="page-link" href="index.php?page_layout=menu&current_page=<?php echo $current_page - 1; ?>">&laquo;</a></li>
+                <?php } else { ?>
+                    <li class="page-item disabled"><a class="page-link">&laquo;</a></li>
+                <?php } ?>
+                <!-- Hiển thị các nút phân trang -->
+                <?php for ($i = 1; $i <= $totalPage; $i++) {
+                    if ($i >= $current_page - 2 && $i <= $current_page + 2) {
+                ?>
 
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-8.png" alt="">
-                <h3>Que cay</h3>
-                <div class="price">$1 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
+                        <?php if ($i == $current_page) { ?>
+                            <li class="page-item active"><a class="page-link" href="index.php?page_layout=menu&current_page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                        <?php } else { ?>
+                            <li class="page-item"><a class="page-link" href="index.php?page_layout=menu&current_page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                        <?php } ?>
 
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-9.png" alt="">
-                <h3>Mỳ Trộn</h3>
-                <div class="price">$3 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
+                <?php
+                    }
+                }
+                ?>
+                <!-- Hiển thị nút chuyển trang kế tiếp -->
+                <?php if ($current_page < $totalPage) { ?>
+                    <li class="page-item"><a class="page-link" href="index.php?page_layout=menu&current_page=<?php echo $current_page + 1; ?>">&raquo;</a></li>
+                <?php } else { ?>
+                    <li class="page-item disabled"><a class="page-link">&raquo;</a></li>
+                <?php } ?>
+            </ul>
+        </nav>
+    </div>
 
-            <div class="box">
-                <img class="items" src="/Assignment/Image/menu-10.png" alt="">
-                <h3>Mít sấy</h3>
-                <div class="price">$1 <span>6.99</span></div>
-                <a href="#" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-        </div>
-    
-    </section>
-    <script src="./script.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</section>
+<script src="./script.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

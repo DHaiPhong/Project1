@@ -1,39 +1,23 @@
+<?php
+$sqlSale = "SELECT * FROM product WHERE prd_sale = 1 ORDER BY prd_id DESC LIMIT 5";
+$query = mysqli_query($conn, $sqlSale);
+?>
 <section class="menu" id="menu">
-        <h1 class="heading"> Đang <span>Sale</span> </h1>
-        <div class="box-container">
-            <div class="box">
-                <img class="items" src="images/menu-1.png" alt="">
-                <h3>Burger</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#menu" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-
-            <div class="box">
-                <img class="items" src="images/menu-2.png" alt="">
-                <h3>Pizza</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#menu" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-
-            <div class="box">
-                <img class="items" src="images/menu-3.png" alt="">
-                <h3>Khoai Tây Chiên</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#menu" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-
-            <div class="box">
-                <img class="items" src="images/menu-4.png" alt="">
-                <h3>Bánh Gà</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#menu" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-
-            <div class="box">
-                <img class="items" src="images/menu-5.png" alt="">
-                <h3>Phô Mai Que</h3>
-                <div class="price">$5 <span>6.99</span></div>
-                <a href="#menu" class="btn add-cart">Thêm vào giỏ</a>
-            </div>
-        </div>
-    </section>
+    <h1 class="heading"> Đang <span>Sale</span> </h1>
+    <div class="box-container">
+        <?php
+        if (mysqli_num_rows($query) > 0) {
+            while ($productSale = mysqli_fetch_assoc($query)) {
+        ?>
+                <div class="box">
+                    <img class="items" src="images/<?php echo $productSale['prd_image']; ?>" alt="">
+                    <h3><?php echo $productSale['prd_name']; ?></h3>
+                    <div class="price">50.000 đ <span><?php echo number_format($productSale['prd_price'],0,',','.');?> đ</span></div>
+                    <a href="modules/cart/process_cart.php?action=add&prd_id=<?php echo $productSale['prd_id']; ?>" class="btn-add add-cart">Thêm vào giỏ</a>
+                </div>
+        <?php
+            }
+        }
+        ?>
+    </div>
+</section>
